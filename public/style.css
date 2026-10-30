@@ -4,17 +4,24 @@
   --border: #e4e4e7;
   --fg: #09090b;
   --muted: #71717a;
+  --accent: #f4f4f5;
+  --primary: #18181b;
   --green: #16a34a;
   --green-bg: #f0fdf4;
-  --green-border: #bbf7d0;
+  --green-bd: #bbf7d0;
   --red: #dc2626;
   --red-bg: #fef2f2;
-  --red-border: #fecaca;
+  --red-bd: #fecaca;
   --radius: 12px;
+  --sidebar: 256px;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -32,19 +39,129 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-header {
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--sidebar);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 20px;
+}
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+.brand-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.brand-sub {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.nav-label {
+  margin: 8px 8px 6px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.nav a:hover,
+.nav a.active {
+  background: var(--accent);
+}
+.nav svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sidebar-foot {
+  margin-top: auto;
+  padding: 8px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.sidebar-foot p {
+  margin: 2px 0;
+}
+
+/* Konten */
+.content {
+  margin-left: var(--sidebar);
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  background: var(--card);
+  padding: 14px 32px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--border);
 }
-header h1 {
+.topbar h1 {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chip {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--card);
 }
 
 .badge {
@@ -67,86 +184,122 @@ header h1 {
 .badge.online {
   background: var(--green-bg);
   color: var(--green);
-  border-color: var(--green-border);
+  border-color: var(--green-bd);
 }
 .badge.offline {
   background: var(--red-bg);
   color: var(--red);
-  border-color: var(--red-border);
+  border-color: var(--red-bd);
 }
 
 main {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 32px 16px;
+  padding: 24px 32px 40px;
 }
 
-.kartu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.kartu,
-.panel {
+/* Kartu */
+.card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-.kartu {
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat {
   padding: 20px 24px;
 }
-.kartu h2 {
-  margin: 0 0 12px;
+.stat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.stat-head h2 {
+  margin: 0;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--muted);
 }
-.kartu .nilai {
+.stat-head svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stat-value {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 1.9rem;
   font-weight: 700;
   letter-spacing: -0.03em;
 }
-.kartu .status {
-  margin: 6px 0 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--muted);
+.stat-foot {
+  margin: 10px 0 0;
 }
-.kartu .waktu {
-  margin: 12px 0 0;
+.stat-note {
+  margin: 8px 0 0;
   font-size: 0.75rem;
   color: var(--muted);
 }
 
-.kartu.normal .status {
-  color: var(--green);
-}
-.kartu.panas {
+.stat.panas {
   background: var(--red-bg);
-  border-color: var(--red-border);
+  border-color: var(--red-bd);
 }
-.kartu.panas .nilai,
-.kartu.panas .status {
+.stat.panas .stat-value {
   color: var(--red);
+}
+
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--accent);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.pill.ok {
+  background: var(--green-bg);
+  color: var(--green);
+  border-color: var(--green-bd);
+}
+.pill.hot {
+  background: var(--red-bg);
+  color: var(--red);
+  border-color: var(--red-bd);
+}
+
+/* Panel */
+.grid-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .panel {
   padding: 24px;
-  margin-bottom: 16px;
 }
-.panel h2 {
-  margin: 0 0 16px;
+.panel-title {
+  margin: 0;
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-.waktu {
-  font-size: 0.75rem;
+.panel-desc {
+  margin: 4px 0 16px;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 
@@ -155,6 +308,32 @@ main {
   height: 320px;
 }
 
+.info {
+  margin: 0;
+}
+.info > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+.info > div:last-child {
+  border-bottom: none;
+}
+.info dt {
+  color: var(--muted);
+}
+.info dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Tabel */
+.table-wrap {
+  overflow-x: auto;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -176,4 +355,31 @@ tbody tr:last-child td {
 }
 tbody tr:hover {
   background: var(--bg);
+}
+
+/* Responsif */
+@media (max-width: 1100px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-main {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 800px) {
+  .sidebar {
+    display: none;
+  }
+  .content {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 12px 16px;
+  }
+  main {
+    padding: 16px;
+  }
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
 }

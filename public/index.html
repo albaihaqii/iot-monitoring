@@ -7,79 +7,169 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <h1>Monitoring Greenhouse</h1>
-      <span id="status-perangkat" class="badge offline">Offline</span>
-    </header>
-
-    <main>
-      <section class="kartu-grid">
-        <article id="kartu-suhu" class="kartu normal">
-          <h2>Suhu</h2>
-          <p id="nilai-suhu" class="nilai">--</p>
-          <p id="status-suhu" class="status">Menunggu data</p>
-          <p id="waktu-suhu" class="waktu">Diperbarui: -</p>
-        </article>
-
-        <article id="kartu-kelembapan" class="kartu netral">
-          <h2>Kelembapan</h2>
-          <p id="nilai-kelembapan" class="nilai">--</p>
-          <p class="status">Relatif</p>
-          <p id="waktu-kelembapan" class="waktu">Diperbarui: -</p>
-        </article>
-      </section>
-
-      <section class="panel">
-        <h2>Grafik 20 Data Terakhir</h2>
-        <div class="chart-box">
-          <canvas id="grafik"></canvas>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">G</div>
+        <div>
+          <p class="brand-title">Greenhouse</p>
+          <p class="brand-sub">IoT Monitoring</p>
         </div>
-      </section>
+      </div>
 
-      <section class="panel">
-        <h2>Statistik</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Besaran</th>
-              <th>Rata-rata</th>
-              <th>Minimum</th>
-              <th>Maksimum</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Suhu (°C)</td>
-              <td id="s-suhu-avg">-</td>
-              <td id="s-suhu-min">-</td>
-              <td id="s-suhu-max">-</td>
-            </tr>
-            <tr>
-              <td>Kelembapan (%)</td>
-              <td id="s-kel-avg">-</td>
-              <td id="s-kel-min">-</td>
-              <td id="s-kel-max">-</td>
-            </tr>
-          </tbody>
-        </table>
-        <p id="jumlah-data" class="waktu">Jumlah data: -</p>
-      </section>
+      <p class="nav-label">Menu</p>
+      <nav class="nav">
+        <a href="#ringkasan" class="active">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Dashboard
+        </a>
+        <a href="#grafik-panel">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+          Grafik
+        </a>
+        <a href="#riwayat">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+          </svg>
+          Riwayat
+        </a>
+      </nav>
 
-      <section class="panel">
-        <h2>Riwayat 10 Data Terakhir</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Waktu (WIB)</th>
-              <th>Perangkat</th>
-              <th>Suhu (°C)</th>
-              <th>Kelembapan (%)</th>
-            </tr>
-          </thead>
-          <tbody id="tabel-body"></tbody>
-        </table>
-      </section>
-    </main>
+      <div class="sidebar-foot">
+        <p>WS Sistem Tertanam</p>
+        <p>Golongan C</p>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <h1>Dashboard</h1>
+        <div class="topbar-right">
+          <span class="chip">GH-01</span>
+          <span class="badge js-status offline">Offline</span>
+        </div>
+      </header>
+
+      <main>
+        <section id="ringkasan" class="grid-4">
+          <article id="kartu-suhu" class="card stat">
+            <div class="stat-head">
+              <h2>Suhu</h2>
+              <svg viewBox="0 0 24 24">
+                <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />
+              </svg>
+            </div>
+            <p id="nilai-suhu" class="stat-value">--</p>
+            <p class="stat-foot">
+              <span id="status-suhu" class="pill">Menunggu data</span>
+            </p>
+            <p id="waktu-suhu" class="stat-note">Diperbarui: -</p>
+          </article>
+
+          <article id="kartu-kelembapan" class="card stat">
+            <div class="stat-head">
+              <h2>Kelembapan</h2>
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"
+                />
+              </svg>
+            </div>
+            <p id="nilai-kelembapan" class="stat-value">--</p>
+            <p class="stat-foot"><span class="pill">Relatif</span></p>
+            <p id="waktu-kelembapan" class="stat-note">Diperbarui: -</p>
+          </article>
+
+          <article class="card stat">
+            <div class="stat-head">
+              <h2>Rata-rata Suhu</h2>
+              <svg viewBox="0 0 24 24">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              </svg>
+            </div>
+            <p id="avg-suhu" class="stat-value">--</p>
+            <p id="avg-suhu-ket" class="stat-note">Min - · Maks -</p>
+          </article>
+
+          <article class="card stat">
+            <div class="stat-head">
+              <h2>Rata-rata Kelembapan</h2>
+              <svg viewBox="0 0 24 24">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              </svg>
+            </div>
+            <p id="avg-kel" class="stat-value">--</p>
+            <p id="avg-kel-ket" class="stat-note">Min - · Maks -</p>
+          </article>
+        </section>
+
+        <section class="grid-main">
+          <article id="grafik-panel" class="card panel">
+            <h2 class="panel-title">Grafik 20 Data Terakhir</h2>
+            <p class="panel-desc">
+              Suhu dan kelembapan, diperbarui setiap 5 detik.
+            </p>
+            <div class="chart-box">
+              <canvas id="grafik"></canvas>
+            </div>
+          </article>
+
+          <article class="card panel">
+            <h2 class="panel-title">Perangkat</h2>
+            <p class="panel-desc">Informasi sensor greenhouse.</p>
+            <dl class="info">
+              <div>
+                <dt>ID perangkat</dt>
+                <dd id="info-device">GH-01</dd>
+              </div>
+              <div>
+                <dt>Status</dt>
+                <dd><span class="badge js-status offline">Offline</span></dd>
+              </div>
+              <div>
+                <dt>Data terakhir</dt>
+                <dd id="info-terakhir">-</dd>
+              </div>
+              <div>
+                <dt>Ambang panas</dt>
+                <dd>35 °C</dd>
+              </div>
+              <div>
+                <dt>Interval kirim</dt>
+                <dd>5 detik</dd>
+              </div>
+              <div>
+                <dt>Jumlah data</dt>
+                <dd id="info-jumlah">-</dd>
+              </div>
+            </dl>
+          </article>
+        </section>
+
+        <section id="riwayat" class="card panel">
+          <h2 class="panel-title">Riwayat 10 Data Terakhir</h2>
+          <p class="panel-desc">Waktu ditampilkan dalam WIB.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Waktu</th>
+                  <th>Perangkat</th>
+                  <th>Suhu (°C)</th>
+                  <th>Kelembapan (%)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
