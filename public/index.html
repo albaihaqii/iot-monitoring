@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monitoring Greenhouse</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Monitoring Greenhouse</h1>
+      <span id="status-perangkat" class="badge offline">Offline</span>
+    </header>
+
+    <main>
+      <section class="kartu-grid">
+        <article id="kartu-suhu" class="kartu normal">
+          <h2>Suhu</h2>
+          <p id="nilai-suhu" class="nilai">--</p>
+          <p id="status-suhu" class="status">Menunggu data</p>
+          <p id="waktu-suhu" class="waktu">Diperbarui: -</p>
+        </article>
+
+        <article id="kartu-kelembapan" class="kartu netral">
+          <h2>Kelembapan</h2>
+          <p id="nilai-kelembapan" class="nilai">--</p>
+          <p class="status">Relatif</p>
+          <p id="waktu-kelembapan" class="waktu">Diperbarui: -</p>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Grafik 20 Data Terakhir</h2>
+        <div class="chart-box">
+          <canvas id="grafik"></canvas>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Statistik</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Besaran</th>
+              <th>Rata-rata</th>
+              <th>Minimum</th>
+              <th>Maksimum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Suhu (°C)</td>
+              <td id="s-suhu-avg">-</td>
+              <td id="s-suhu-min">-</td>
+              <td id="s-suhu-max">-</td>
+            </tr>
+            <tr>
+              <td>Kelembapan (%)</td>
+              <td id="s-kel-avg">-</td>
+              <td id="s-kel-min">-</td>
+              <td id="s-kel-max">-</td>
+            </tr>
+          </tbody>
+        </table>
+        <p id="jumlah-data" class="waktu">Jumlah data: -</p>
+      </section>
+
+      <section class="panel">
+        <h2>Riwayat 10 Data Terakhir</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Waktu (WIB)</th>
+              <th>Perangkat</th>
+              <th>Suhu (°C)</th>
+              <th>Kelembapan (%)</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-body"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
